@@ -1,6 +1,6 @@
 <template>
 <div class="container py-4">
-    <post-create @create-post="createPost"></post-create>   
+    <post-create @create-post="createPost"></post-create>  
 
     <div class="row g-3">
         <div v-for="post in posts" :key="post.id" class="col col-4">
@@ -38,9 +38,10 @@ export default {
         const changeObj = () => {
             obj.title = '송은혜';
         }
-        const createPost = (newTitle) => {
-            console.log("createPost");
-            console.log("newTitle :", newTitle);
+        const createPost = newPost => {
+            console.log("newPost :", newPost);
+            newPost.contents = newPost.title;
+            posts.push(newPost);
         }
         return {posts, obj, changeObj, createPost};
     }
