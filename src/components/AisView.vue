@@ -1,30 +1,39 @@
 <template>
-<div class="container py-4">
-    <post-create @create-post="createPost"></post-create>  
+<main>
+    <div class="container py-4">
+        <post-create @create-post="createPost"></post-create>  
 
-    <div class="row g-3">
-        <div v-for="post in posts" :key="post.id" class="col col-4">
-            <ais-card 
-                :title="post.title" 
-                :contents="post.contents" 
-                :isLike="post.isLike" 
-                :type="post.type"
-                @toggle-like="post.isLike = !post.isLike"
-                @change-title="changeObj"
-                :obj="obj"
-                >
-            </ais-card>
+        <div class="row g-3">
+            <div v-for="post in posts" :key="post.id" class="col col-4">
+                <ais-card 
+                    :title="post.title" 
+                    :contents="post.contents" 
+                    :isLike="post.isLike" 
+                    :type="post.type"
+                    @toggle-like="post.isLike = !post.isLike"
+                    @change-title="changeObj"
+                    :obj="obj"
+                    >
+                </ais-card>
+            </div>
         </div>
+
+        <hr class="my-4"/>
+        
+        <!-- <label-input 
+        :model-value="username" 
+        @update:model-value="value=>(username = value)"></label-input> -->
+        <label-input v-model="username" :label="이름"></label-input>
     </div>
-</div>
+</main>
 </template>
 <script>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import AisCard from './AisCard.vue';
 import PostCreate from './PostCreate.vue';
-
+import LabelInput from './LabelInput.vue';
 export default {
-    components: {AisCard, PostCreate},
+    components: {AisCard, PostCreate, LabelInput},
     setup(){
         const obj = reactive({title: 'obj', contents: 'obj-content'});
         const posts = reactive([
@@ -37,13 +46,15 @@ export default {
             ]);//reactive
         const changeObj = () => {
             obj.title = '송은혜';
-        }
+        };
         const createPost = newPost => {
             console.log("newPost :", newPost);
             newPost.contents = newPost.title;
             posts.push(newPost);
-        }
-        return {posts, obj, changeObj, createPost};
+        };
+
+        const username = ref('');
+        return {posts, obj, changeObj, createPost, username};
     }
 }
 </script>
