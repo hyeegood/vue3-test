@@ -49,9 +49,9 @@ export default {
             props.type === 'news' ? '뉴스' : '공지사항',
         );
         const toggleLike = () => {
-            props.obj.title = '김길동';
+            console.log('props.isLike : ', props.isLike);
             context.emit('changeTitle');
-            context.emit('toggleLike');
+            context.emit('toggleLike', props);
         }
         return{ isLikeClass, typeName, toggleLike };
     }
